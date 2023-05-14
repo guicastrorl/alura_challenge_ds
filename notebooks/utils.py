@@ -99,3 +99,154 @@ def column_analysis(data, column, dataframe = False):
     # print(f'Tipo:          {data[column].dtypes}')
     
     return (column, data[column].nunique(), str(data[column].unique()), data[column].isna().sum(), data[column].dtypes)
+
+import pandas as pd
+import statsmodels.api as sm
+
+
+def forward_regression(X, y, threshold_in, verbose=True):
+    included = []
+
+    while True:
+        changed = False
+
+        excluded = list(set(X.columns) - set(included))
+        new_pval = pd.Series(index = excluded)
+
+        for new_column in excluded:
+            model = sm.OLS(y, sm.add_constant(pd.DataFrame(X[included + [new_column]]))).fit()
+            new_pval[new_column] = model.pvalues[new_column]
+
+        best_pval = new_pval.min()
+
+        if best_pval < threshold_in:
+            best_feature = new_pval.idxmin()
+            included.append(best_feature)
+            changed = True
+
+            if verbose:
+                print('Add  {:30} with p-value {:.6}'.format(best_feature, best_pval))
+        
+        if not changed:
+            break
+
+    return included
+
+def backward_regression(X, y, threshold_out, verbose=True):
+    included = list(X.columns)
+
+    while True:
+        changed = False
+
+        model = sm.OLS(y, sm.add_constant(pd.DataFrame(X[included]))).fit()
+        # use all coefs except intercept
+        pvalues = model.pvalues.iloc[1:]
+        worst_pval = pvalues.max() # null if pvalues is empty
+
+        if worst_pval > threshold_out:
+            changed = True
+            worst_feature = pvalues.idxmax()
+            included.remove(worst_feature)
+
+            if verbose:
+                print('Drop {:30} with p-value {:.6}'.format(worst_feature, worst_pval))
+        
+        if not changed:
+            break
+
+    return included
+
+def stepwise_regression(X, y, threshold_in = 0.01, threshold_out = 0.05, verbose=True):
+    """ 
+    Perform a forward-backward feature selection 
+    based on p-value from statsmodels.api.OLS
+    Arguments:
+        X - pandas.DataFrame with candidate features
+        y - list-like with the target
+        initial_list - list of features to start with (column names of X)
+        threshold_in - include a feature if its p-value < threshold_in
+        threshold_out - exclude a feature if its p-value > threshold_out
+        verbose - whether to print the sequence of inclusions and exclusions
+    Returns: list of selected features 
+    Always set threshold_in < threshold_out to avoid infinite looping.
+    See https://en.wikipedia.org/wiki/Stepwise_regression for the details
+    """
+    initial_list = X.columns.tolist()
+    best_features = list(initial_list)
+
+    while True:
+        changed = False
+        # forward step
+        remaining_features = list(set(X.columns) - set(best_features))
+        new_pval = pd.Series(index = remaining_features)
+
+        for new_column in remaining_features:
+            model = sm.OLS(y, sm.add_constant(pd.DataFrame(X[best_features + [new_column]]))).fit()
+            new_pval[new_column] = model.pvalues[new_column]
+
+        best_pval = new_pval.min()
+
+        if best_pval < threshold_in:
+            best_feature = new_pval.idxmin() #.argmin()
+            best_features.append(best_feature)
+            changed = True
+
+            if verbose:
+                print('Add  {:30} with p-value {:.6}'.format(best_feature, best_pval))
+
+        # backward step
+        model = sm.OLS(y, sm.add_constant(pd.DataFrame(X[best_features]))).fit()
+        # use all coefs except intercept
+        pvalues = model.pvalues.iloc[1:]
+        worst_pval = pvalues.max() # null if pvalues is empty
+
+        if worst_pval >= threshold_out:
+            changed = True
+            worst_feature = pvalues.idxmax() #argmax()
+            best_features.remove(worst_feature)
+
+            if verbose:
+                print('Drop {:30} with p-value {:.6}'.format(worst_feature, worst_pval))
+        
+        if not changed:
+            break
+        
+    return best_features
+
+def stepwise_regression_1(X, y, threshold_in = 0.05, threshold_out = 0.05, verbose = True):
+    initial_list = X.columns.tolist()
+    best_features = []
+
+    while (len(initial_list) > 0):
+        remaining_features = list(set(initial_list) - set(best_features))
+        new_pval = pd.Series(index = remaining_features)
+
+        for new_column in remaining_features:
+            model = sm.OLS(y, sm.add_constant(X[best_features + [new_column]])).fit()
+            new_pval[new_column] = model.pvalues[new_column]
+
+        min_p_value = new_pval.min()
+
+        if(min_p_value < threshold_in):
+            best_feature = new_pval.idxmin()
+            best_features.append(best_feature)
+            if verbose:
+                print('Add  {:30} with p-value {:.6}'.format(best_feature, min_p_value))
+
+            while(len(best_features) > 0):
+                best_features_with_constant = sm.add_constant(X[best_features])
+                p_values = sm.OLS(y, best_features_with_constant).fit().pvalues[1:]
+                max_p_value = p_values.max()
+                
+                if(max_p_value >= threshold_out):
+                    excluded_feature = p_values.idxmax()
+                    best_features.remove(excluded_feature)
+                    if verbose:
+                        print('Drop {:30} with p-value {:.6}'.format(excluded_feature, max_p_value))
+
+                else:
+                    break 
+        else:
+            break
+    return best_features
+
