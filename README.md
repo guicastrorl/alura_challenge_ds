@@ -7,7 +7,7 @@ A **taxa de churn** é uma métrica crítica para as empresas, independentemente
 
 Através da análise detalhada da **taxa de churn**, as organizações podem identificar padrões, determinar fatores que contribuem para a perda de clientes e desenvolver estratégias proativas para melhorar a retenção, aumentando assim a satisfação do cliente, a fidelidade à marca e a saúde geral do negócio.
 <br></br>
-![churn](../img/churn.jpg)
+![churn](img/churn.jpg)
 <br></br>
 # Objetivos
 - **Identificação Proativa de Clientes em Risco de Evasão:**
