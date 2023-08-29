@@ -19,7 +19,7 @@ Um dos principais focos deste projeto é desenvolver um modelo preditivo capaz d
 Outro objetivo crucial deste projeto é compreender a fundo as variáveis que têm maior influência no processo de evasão de clientes. Através de análises detalhadas, buscamos identificar as variáveis que desempenham um papel determinante na decisão dos clientes de deixar nossa empresa. Ao identificar esses pontos de impacto, poderemos desenvolver estratégias mais direcionadas e personalizadas, visando mitigar a taxa de evasão. Ao tomar medidas para abordar os fatores mais relevantes, esperamos reduzir significativamente a taxa de churn e fortalecer a fidelidade de nossos clientes.
 <br></br>
 ## Dados
-Os dados utilizados nesse projeto se encontram <a href='https://raw.githubusercontent.com/carlosfab/dsnp2/master/datasets/WA_Fn-UseC_-Telco-Customer-Churn.csv' target='_blank'>nesse link</a>.
+Os dados utilizados nesse projeto se encontram <a href='https://raw.githubusercontent.com/carlosfab/dsnp2/master/datasets/WA_Fn-UseC_-Telco-Customer-Churn.csv' target='_blank'>nesse link</a> e o notebook completo com as análises, treinamento e resultados se encontrem <a href='https://github.com/guicastrorl/alura_challenge_ds/blob/main/notebooks/notebook_crisp_ds.ipynb' target='_blank'>nesse link</a>.
 
 A base de dados possui o número de identificação do cliente e se o cliente deixou ou não a empresa, e ainda, informações sobre:
 
