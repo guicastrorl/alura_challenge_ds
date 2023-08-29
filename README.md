@@ -1,4 +1,4 @@
-# Ańalise de Churn, aonde podemos atuar para reter nossos clientes e em quais clientes devemos atuar?
+# Análise de Churn, aonde atuar para reter clientes e em quais clientes atuar?
 
 ## Problema de Negócio
 Uma operadora de telecomunicações necessita de uma análise para a área de vendas da empresa com o intuito de reduzir a taxa de evasão de clientes, conhecido como **taxa de churn**. A **taxa de churn** indica quanto a empresa perdeu de receita ou de clientes em um certo período de tempo.
