@@ -1,4 +1,6 @@
-# Problema de Negócio
+# Ańalise de Churn, aonde podemos atuar para reter nossos clientes e em quais clientes devemos atuar?
+
+## Problema de Negócio
 Uma operadora de telecomunicações necessita de uma análise para a área de vendas da empresa com o intuito de reduzir a taxa de evasão de clientes, conhecido como **taxa de churn**. A **taxa de churn** indica quanto a empresa perdeu de receita ou de clientes em um certo período de tempo.
 
 No atual cenário empresarial altamente competitivo e dinâmico, a retenção de clientes emergiu como um dos principais desafios enfrentados pelas organizações. Uma métrica crucial que auxilia as empresas a entenderem e abordarem esse desafio é a **taxa de churn**, também conhecida como taxa de rotatividade de clientes. A **taxa de churn** é um indicador que mede a proporção de clientes que deixaram de fazer negócios com uma empresa durante um determinado período, em relação ao número total de clientes que a empresa possuía no início desse período. Em outras palavras, ela quantifica a perda de clientes ao longo do tempo.
@@ -9,14 +11,14 @@ Através da análise detalhada da **taxa de churn**, as organizações podem ide
 <br></br>
 ![churn](img/churn.jpg)
 <br></br>
-# Objetivos
+## Objetivos
 - **Identificação Proativa de Clientes em Risco de Evasão:**
 Um dos principais focos deste projeto é desenvolver um modelo preditivo capaz de identificar de forma proativa os clientes que apresentam uma probabilidade mais elevada de deixar nossa empresa. Isso será realizado através da análise de características específicas extraídas de nossa base de dados. Ao antecipar quais clientes estão em risco de evasão, seremos capazes de direcionar esforços e estratégias de retenção de maneira mais eficaz, garantindo um relacionamento mais sólido e duradouro com nossa base de clientes.
 
 - **Análise de Drivers de Churn para Melhoria da Retenção de Clientes:**
 Outro objetivo crucial deste projeto é compreender a fundo as variáveis que têm maior influência no processo de evasão de clientes. Através de análises detalhadas, buscamos identificar as variáveis que desempenham um papel determinante na decisão dos clientes de deixar nossa empresa. Ao identificar esses pontos de impacto, poderemos desenvolver estratégias mais direcionadas e personalizadas, visando mitigar a taxa de evasão. Ao tomar medidas para abordar os fatores mais relevantes, esperamos reduzir significativamente a taxa de churn e fortalecer a fidelidade de nossos clientes.
 <br></br>
-# Dados
+## Dados
 Os dados utilizados nesse projeto se encontram <a href='https://raw.githubusercontent.com/carlosfab/dsnp2/master/datasets/WA_Fn-UseC_-Telco-Customer-Churn.csv' target='_blank'>nesse link</a>.
 
 A base de dados possui o número de identificação do cliente e se o cliente deixou ou não a empresa, e ainda, informações sobre:
